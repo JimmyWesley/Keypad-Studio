@@ -52,10 +52,10 @@ function Diag-Hint([string]$output) {
   if ([string]::IsNullOrWhiteSpace($output)) { return "" }
   $o = $output.ToLower()
   if (($o -match "find usb device" -or $o -match "entity not found" -or $o -match "no device" -or $o -match "not found") -and -not (Test-UsbDk)) {
-    return "O driver USBDK nao esta instalado. Ele e necessario para GRAVAR no teclado no Windows. Instale o USBDK, reconecte o teclado por USB e tente de novo."
+    return "The USBDK driver is not installed. It is required to WRITE to the keyboard on Windows. Install USBDK, re-plug the keyboard via USB and try again."
   }
   if ($o -match "access" -or $o -match "permission" -or $o -match "busy") {
-    return "Acesso negado ao dispositivo. Feche outros programas que usam o teclado, reconecte o cabo USB e tente novamente."
+    return "Access to the device was denied. Close other programs using the keyboard, re-plug the USB cable and try again."
   }
   return ""
 }
@@ -130,8 +130,8 @@ foreach ($p in $tryPorts) {
   } catch { $listener = New-Object System.Net.HttpListener }
 }
 if (-not $chosen) {
-  Write-Line "Nao consegui abrir uma porta local (8787-8799)." "Red"
-  Read-Host "Pressione Enter para sair"; exit 1
+  Write-Line "Could not open a local port (8787-8799)." "Red"
+  Read-Host "Press Enter to exit"; exit 1
 }
 
 $url = "http://localhost:$chosen/"
@@ -139,10 +139,10 @@ Write-Host ""
 Write-Line "  KEYPAD STUDIO" "Cyan"
 Write-Line "  ---------------------------------------------" "DarkGray"
 Write-Line "  UI:   $url" "White"
-if ($Exe) { Write-Line "  CLI:  $Exe" "DarkGray" } else { Write-Line "  CLI:  NAO ENCONTRADO (validar/enviar ficarao off)" "Yellow" }
-if (Test-UsbDk) { Write-Line "  USBDK: instalado (ok para gravar)" "DarkGray" } else { Write-Line "  USBDK: NAO instalado -> necessario para ENVIAR ao teclado" "Yellow" }
+if ($Exe) { Write-Line "  CLI:  $Exe" "DarkGray" } else { Write-Line "  CLI:  NOT FOUND (validate/send will be off)" "Yellow" }
+if (Test-UsbDk) { Write-Line "  USBDK: installed (ok to write)" "DarkGray" } else { Write-Line "  USBDK: NOT installed -> required to SEND to the keyboard" "Yellow" }
 Write-Line "  ---------------------------------------------" "DarkGray"
-Write-Line "  Deixe esta janela aberta. Feche-a para encerrar." "DarkGray"
+Write-Line "  Keep this window open. Close it to stop." "DarkGray"
 Write-Host ""
 
 try { Start-Process $url } catch {}

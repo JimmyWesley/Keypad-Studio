@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -51,13 +51,14 @@ button{font-family:inherit}
 }
 .logo::after{content:"";position:absolute;inset:4px;border-radius:8px;background:#0b0d14;
   box-shadow:inset 0 0 12px rgba(0,0,0,.6)}
-.logo::before{content:"";position:absolute;inset:0;border-radius:11px;padding:1px;z-index:2;
-  background:conic-gradient(from 210deg,#ff4d6d,#ffa14d,#ffe14d,#4dff9e,#4de1ff,#6e8bff,#b07cff,#ff4d6d);
-  -webkit-mask:radial-gradient(circle 7px at 50% 50%,#000 98%,transparent) ,linear-gradient(#000,#000);
-  -webkit-mask-composite:xor;mask-composite:exclude;opacity:0}
 .brand h1{font-size:15px;letter-spacing:.14em;margin:0;font-weight:650;text-transform:uppercase}
 .brand .sub{font-size:11px;color:var(--muted);letter-spacing:.08em;margin-top:1px}
 .spacer{flex:1}
+
+.langsw{display:flex;gap:2px;background:rgba(0,0,0,.28);padding:3px;border-radius:9px;border:1px solid var(--stroke)}
+.langsw button{border:none;background:transparent;color:var(--muted);padding:5px 9px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:.04em}
+.langsw button:hover{color:var(--text)}
+.langsw button.active{background:rgba(255,255,255,.12);color:var(--text)}
 
 .pill{
   display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:999px;
@@ -284,17 +285,21 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='ht
     </div>
   </div>
   <div class="spacer"></div>
-  <span id="devpill" class="pill off"><span class="dot"></span><span id="devpilltxt">Verificando…</span></span>
-  <button class="btn ghost" id="btnSync" title="Trazer a última config enviada ao teclado">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-9 9 9 9 0 0 1-8.5-6M3 12a9 9 0 0 1 9-9 9 9 0 0 1 8.5 6"/><path d="M21 3v6h-6M3 21v-6h6"/></svg>Sincronizar</button>
-  <button class="btn ghost" id="btnImport" title="Importar YAML">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>Importar</button>
-  <button class="btn ghost" id="btnExport" title="Exportar YAML">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21V9m0 0l-4 4m4-4l4 4M5 3h14"/></svg>Exportar</button>
+  <div class="langsw" id="langsw">
+    <button data-lang="pt">PT</button>
+    <button data-lang="en">EN</button>
+  </div>
+  <span id="devpill" class="pill off"><span class="dot"></span><span id="devpilltxt"></span></span>
+  <button class="btn ghost" id="btnSync" data-i18n-title="sync_title">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-9 9 9 9 0 0 1-8.5-6M3 12a9 9 0 0 1 9-9 9 9 0 0 1 8.5 6"/><path d="M21 3v6h-6M3 21v-6h6"/></svg><span data-i18n="sync"></span></button>
+  <button class="btn ghost" id="btnImport" data-i18n-title="import_title">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg><span data-i18n="import"></span></button>
+  <button class="btn ghost" id="btnExport" data-i18n-title="export_title">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21V9m0 0l-4 4m4-4l4 4M5 3h14"/></svg><span data-i18n="export"></span></button>
   <button class="btn" id="btnValidate">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Validar</button>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="validate"></span></button>
   <button class="btn upload" id="btnUpload">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5m0 0l-6 6m6-6l6 6"/></svg>Enviar p/ teclado</button>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5m0 0l-6 6m6-6l6 6"/></svg><span data-i18n="send"></span></button>
 </div>
 
 <div id="usbdkBanner" style="display:none;max-width:1500px;margin:18px auto 0;padding:14px 18px;
@@ -302,11 +307,8 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='ht
   border:1px solid rgba(255,206,90,.4);border-radius:14px;color:#ffe7b0;font-size:13.5px;line-height:1.55;
   display:flex;align-items:center;gap:14px">
   <span style="font-size:22px;flex:none">⚠️</span>
-  <div style="flex:1">
-    <b>Falta instalar o USBDK</b> — sem ele o Windows não deixa <b>gravar</b> no teclado (o "Conectado" acima é só a detecção).
-    Instale o driver, reconecte o cabo USB e tente enviar de novo.
-  </div>
-  <a class="btn" href="https://github.com/daynix/UsbDk/releases/latest" target="_blank" rel="noopener" style="flex:none;text-decoration:none">Baixar USBDK</a>
+  <div style="flex:1" data-i18n-html="usbdk_body"></div>
+  <a class="btn" href="https://github.com/daynix/UsbDk/releases/latest" target="_blank" rel="noopener" style="flex:none;text-decoration:none" data-i18n="usbdk_btn"></a>
 </div>
 
 <div class="wrap">
@@ -314,7 +316,7 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='ht
   <div style="display:flex;flex-direction:column;gap:24px;min-width:0">
     <div class="card">
       <div class="hd">
-        <h2>Dispositivo</h2>
+        <h2 data-i18n="hd_device"></h2>
         <div class="spacer"></div>
         <div class="layers" id="layerTabs"></div>
       </div>
@@ -330,7 +332,7 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='ht
     </div>
 
     <div class="card" id="ledCard">
-      <div class="hd"><h2>Iluminação (LED)</h2><div class="spacer"></div><span class="pill off" id="ledModelPill" style="font-size:11px">—</span></div>
+      <div class="hd"><h2 data-i18n="hd_led"></h2><div class="spacer"></div><span class="pill off" id="ledModelPill" style="font-size:11px">—</span></div>
       <div class="bd" id="ledBody"></div>
     </div>
   </div>
@@ -338,44 +340,44 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='ht
   <!-- RIGHT : inspector + yaml + settings -->
   <div style="display:flex;flex-direction:column;gap:24px;min-width:0">
     <div class="card">
-      <div class="hd"><h2>Ação</h2></div>
+      <div class="hd"><h2 data-i18n="hd_action"></h2></div>
       <div class="bd" id="inspector"></div>
     </div>
 
     <div class="card">
-      <div class="hd"><h2>Config (YAML)</h2><div class="spacer"></div>
-        <button class="btn ghost" id="btnCopyYaml" style="padding:6px 11px;font-size:12px">Copiar</button></div>
+      <div class="hd"><h2 data-i18n="hd_config"></h2><div class="spacer"></div>
+        <button class="btn ghost" id="btnCopyYaml" style="padding:6px 11px;font-size:12px" data-i18n="copy"></button></div>
       <div class="bd"><div class="yaml-box" id="yaml"></div></div>
     </div>
 
     <div class="card">
-      <div class="hd"><h2>Ajustes do teclado</h2></div>
+      <div class="hd"><h2 data-i18n="hd_settings"></h2></div>
       <div class="bd">
         <div class="settings-grid">
-          <div><label>Orientação</label>
+          <div><label data-i18n="lbl_orientation"></label>
             <select id="setOrient">
-              <option value="normal">Normal (knobs à direita)</option>
-              <option value="upsidedown">Invertido</option>
-              <option value="clockwise">Vertical ↻ (knobs embaixo)</option>
-              <option value="counterclockwise">Vertical ↺ (knobs em cima)</option>
+              <option value="normal" data-i18n="orient_normal"></option>
+              <option value="upsidedown" data-i18n="orient_upsidedown"></option>
+              <option value="clockwise" data-i18n="orient_cw"></option>
+              <option value="counterclockwise" data-i18n="orient_ccw"></option>
             </select></div>
-          <div><label>Modelo</label>
+          <div><label data-i18n="lbl_model"></label>
             <select id="setModel">
               <option value="ch57x-2">ch57x-2 (12+2, 0x8890)</option>
               <option value="ch57x-1">ch57x-1 (0x8840/8842/8850)</option>
               <option value="ch57x-3">ch57x-3 (0x8850)</option>
             </select></div>
-          <div><label>Linhas</label><input type="number" id="setRows" min="1" max="6" value="3"></div>
-          <div><label>Colunas</label><input type="number" id="setCols" min="1" max="6" value="4"></div>
-          <div><label>Knobs</label><input type="number" id="setKnobs" min="0" max="3" value="2"></div>
-          <div style="display:flex;align-items:flex-end"><button class="btn ghost" id="btnReshape" style="width:100%;justify-content:center">Aplicar layout</button></div>
+          <div><label data-i18n="lbl_rows"></label><input type="number" id="setRows" min="1" max="6" value="3"></div>
+          <div><label data-i18n="lbl_cols"></label><input type="number" id="setCols" min="1" max="6" value="4"></div>
+          <div><label data-i18n="lbl_knobs"></label><input type="number" id="setKnobs" min="0" max="3" value="2"></div>
+          <div style="display:flex;align-items:flex-end"><button class="btn ghost" id="btnReshape" style="width:100%;justify-content:center" data-i18n="apply_layout"></button></div>
         </div>
-        <div class="hint" style="margin-top:12px">Escolha a orientação de como você <b>segura</b> o teclado. <b>Vertical ↺ (knobs em cima)</b> é a do seu — o editor passa a desenhar 3 colunas × 4 linhas e o que você clica vira exatamente a tecla que você aperta. Os campos <b>Linhas/Colunas</b> são a base interna (normal, knobs à direita); normalmente não precisa mexer.</div>
+        <div class="hint" style="margin-top:12px" data-i18n-html="settings_hint"></div>
       </div>
     </div>
 
     <div class="card">
-      <div class="hd"><h2>Perfis</h2></div>
+      <div class="hd"><h2 data-i18n="hd_profiles"></h2></div>
       <div class="bd" id="profilesBody"></div>
     </div>
   </div>
@@ -383,34 +385,181 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='ht
 
 <div class="foot">
   <div class="divider"></div>
-  <div><b style="color:var(--muted)">Keypad Studio</b> — interface para <a href="https://github.com/kriomant/ch57x-keyboard-tool" target="_blank" rel="noopener">ch57x-keyboard-tool</a> de Mikhail Trishchenkov (MIT/Apache-2.0).
-  Conecte o teclado por USB · no Windows é preciso ter o <a href="https://github.com/daynix/UsbDk/releases" target="_blank" rel="noopener">USBDK</a> instalado para enviar.</div>
+  <div data-i18n-html="foot"></div>
 </div>
 
 <input type="file" id="fileInput" accept=".yaml,.yml,.txt" style="display:none">
 <div class="toast" id="toast"><span class="dot"></span><span id="toasttxt"></span></div>
 
 <script>
-/* ============================ DATA ============================ */
-const KEYS = {
-  "Letras":["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"],
-  "Números":["1","2","3","4","5","6","7","8","9","0"],
-  "Função":["f1","f2","f3","f4","f5","f6","f7","f8","f9","f10","f11","f12","f13","f14","f15","f16","f17","f18","f19","f20","f21","f22","f23","f24"],
-  "Navegação":["enter","escape","backspace","tab","space","insert","home","pageup","delete","end","pagedown","left","right","up","down","capslock","printscreen"],
-  "Símbolos":["minus","equal","leftbracket","rightbracket","backslash","semicolon","quote","grave","comma","dot","slash","nonushash","nonusbackslash","application","power"],
-  "Numpad":["numlock","numpadslash","numpadasterisk","numpadminus","numpadplus","numpadenter","numpad0","numpad1","numpad2","numpad3","numpad4","numpad5","numpad6","numpad7","numpad8","numpad9","numpaddot","numpadequal"],
-  "macOS":["macbrightnessdown","macbrightnessup"]
+/* ============================ I18N ============================ */
+const I18N = {
+  pt: {
+    checking:"Verificando…",
+    sync:"Sincronizar", sync_title:"Trazer a última config enviada ao teclado",
+    import:"Importar", import_title:"Importar YAML",
+    export:"Exportar", export_title:"Exportar YAML",
+    validate:"Validar", send:"Enviar p/ teclado",
+    usbdk_body:'<b>Falta instalar o USBDK</b> — sem ele o Windows não deixa <b>gravar</b> no teclado (o "Conectado" acima é só a detecção). Instale o driver, reconecte o cabo USB e tente enviar de novo.',
+    usbdk_btn:"Baixar USBDK",
+    hd_device:"Dispositivo", hd_led:"Iluminação (LED)", hd_action:"Ação", hd_config:"Config (YAML)",
+    copy:"Copiar", hd_settings:"Ajustes do teclado", hd_profiles:"Perfis",
+    lbl_orientation:"Orientação", lbl_model:"Modelo", lbl_rows:"Linhas", lbl_cols:"Colunas", lbl_knobs:"Knobs",
+    orient_normal:"Normal (knobs à direita)", orient_upsidedown:"Invertido",
+    orient_cw:"Vertical ↻ (knobs embaixo)", orient_ccw:"Vertical ↺ (knobs em cima)",
+    apply_layout:"Aplicar layout",
+    settings_hint:'Escolha a orientação de como você <b>segura</b> o teclado. <b>Vertical ↺ (knobs em cima)</b> é a do seu — o editor passa a desenhar 3 colunas × 4 linhas e o que você clica vira exatamente a tecla que você aperta. Os campos <b>Linhas/Colunas</b> são a base interna (normal, knobs à direita); normalmente não precisa mexer.',
+    foot:'<b style="color:var(--muted)">Keypad Studio</b> — interface para <a href="https://github.com/kriomant/ch57x-keyboard-tool" target="_blank" rel="noopener">ch57x-keyboard-tool</a> de Mikhail Trishchenkov (MIT/Apache-2.0). Conecte o teclado por USB · no Windows é preciso ter o <a href="https://github.com/daynix/UsbDk/releases" target="_blank" rel="noopener">USBDK</a> instalado para enviar.',
+    layer:"Layer", layer_sub:"camada", empty:"vazio",
+    insp_empty1:"Selecione uma tecla ou knob no dispositivo<br>para configurar a ação dela.",
+    insp_empty2:"12 teclas · 2 knobs (↺ girar · ● apertar · ↻ girar) · 3 layers",
+    key_word:"Tecla", no_action:"— sem ação —", clear:"Limpar",
+    tab_key:"Tecla", tab_combo:"Atalho", tab_macro:"Macro", tab_mouse:"Mouse", tab_media:"Mídia", tab_raw:"Avançado",
+    act_ccw:"girar anti-horário ↺", act_press:"apertar ●", act_cw:"girar horário ↻",
+    rowcol:(r,c,l)=>`linha ${r}, coluna ${c} · Layer ${l}`,
+    search_key:"Buscar tecla…",
+    hint_key:'Define um único toque. Para combinações com Ctrl/Shift use a aba <b>Atalho</b>. Código HID custom: <code>&lt;110&gt;</code>.',
+    cat_custom:"Custom HID", no_keys:"Nenhuma tecla encontrada",
+    cat_letters:"Letras", cat_numbers:"Números", cat_function:"Função", cat_navigation:"Navegação",
+    cat_symbols:"Símbolos", cat_numpad:"Numpad", cat_macos:"macOS",
+    fl_mods:"Modificadores", fl_key:"Tecla", combo_empty:"escolha modificadores e/ou tecla", apply_combo:"Aplicar atalho",
+    fl_steps:"Passos da sequência (máx. 5)", ph_step:"ex: ctrl-c  ·  enter  ·  a", add_step:"+ Adicionar passo",
+    fl_delay:"Delay entre passos (ms, opcional)", ph_delay:"ex: 100",
+    hint_macro:'Cada passo é uma tecla ou combo (<code>ctrl-c</code>). A sequência <code>h,e,l,l,o</code> digita "hello". Máx. 5 passos.',
+    macro_empty:"adicione pelo menos um passo", apply_macro:"Aplicar macro",
+    fl_type:"Tipo", mouse_click:"Clique", mouse_scroll:"Scroll", mouse_move:"Mover", mouse_drag:"Arrastar",
+    fl_modifier_opt:"Modificador (opcional)", fl_buttons:"Botões",
+    fl_offset:"Deslocamento (−128 a 127)", fl_amount:"Quantidade (−128 a 127, + sobe / − desce)",
+    mouse_cfg:"configure a ação", apply_mouse:"Aplicar ação de mouse",
+    fl_media:"Teclas de mídia & sistema", hint_media:"Teclas de mídia não podem ser combinadas com modificadores ou outras teclas.",
+    media:{play:"⏯ Play/Pause",stop:"⏹ Stop",prev:"⏮ Anterior",next:"⏭ Próxima",mute:"🔇 Mudo",
+      volumeup:"🔊 Volume +",volumedown:"🔉 Volume −",screenbrightnessup:"☀ Brilho +",screenbrightnessdown:"🌙 Brilho −",
+      favorites:"★ Favoritos",calculator:"🖩 Calculadora",screenlock:"🔒 Bloquear",webpagehome:"🏠 Home",webpageback:"← Voltar",webpageforward:"→ Avançar"},
+    fl_raw:"Ação (sintaxe do ch57x-keyboard-tool)", ph_raw:"ex: ctrl-alt-del  ·  {delay(50)}h,i  ·  click(left+right)",
+    apply:"Aplicar", syntax_ok:"✓ sintaxe válida",
+    hint_raw:'Modificadores: <code>ctrl shift alt win</code> (+ right: <code>rctrl…</code>). Sequência com vírgula (até 5): <code>a,b,c</code>. Delay: <code>{delay(100)}…</code>. Mouse: <code>click</code> <code>move(x,y)</code> <code>wheel(n)</code> <code>drag(left,x,y)</code>.',
+    led_mode:"Modo", led_off:"Apagado", led_backlight:"Backlight fixo", led_press:"Acende ao apertar", led_shock:"Shock", led_shock2:"Shock 2",
+    led_color:"Cor", led_layer:"Aplicar na layer", led_all:"Todas",
+    led_simple_hint:"Este modelo (0x8890) aceita apenas selecionar o modo de LED embutido pelo número. Normalmente <code>1</code> = aceso fixo.",
+    led_mode_num:"Modo (número)", apply_led:"Aplicar iluminação no teclado", led_need_bridge:"Abra pelo atalho (bridge) para enviar ao teclado",
+    led_applying:"Aplicando…", led_applied:"✓ iluminação aplicada no teclado", led_failed:"falhou", comm_err:"erro de comunicação",
+    pill_preview:"Modo prévia (sem bridge)", pill_notdetected:"Teclado não detectado",
+    pill_connected:(m,v,p)=>`Conectado · ${m} (${v}:${p})`,
+    model_detected:(m)=>`Modelo detectado: ${m}`, led_modelpill:(m)=>`modelo: ${m}`,
+    validating:"Validando…", valid_ok:"Config válida 👌", valid_bad:"Config inválida — veja o detalhe",
+    valid_err:"Erro ao validar", valid_local_ok:"Config válida (verificação local) ✓",
+    valid_local_bad:(n)=>`${n} ação(ões) com problema — veja destaques`, validate_dlg:"Validação:",
+    need_bridge_send:"Abra pelo atalho para enviar ao teclado", connect_usb:"Conecte o teclado por USB",
+    confirm_upload:"Enviar esta configuração para o teclado?\n\nAs 3 layers serão gravadas no dispositivo.",
+    sending:"Enviando…", sent_ok:"Enviado com sucesso 🎉", sent_fail:"Falha ao enviar",
+    upload_tech:"Detalhe técnico:", send_err:"Erro ao enviar",
+    export_ok:"YAML exportado", import_ok:"Config importada ✓", import_err:"Não consegui ler esse YAML",
+    layout_applied:"Layout aplicado", yaml_copied:"YAML copiado", copy_fail:"não foi possível copiar",
+    sync_need_bridge:"Abra pelo atalho (bridge) para sincronizar", synced_ok:"Sincronizado com o teclado ✓",
+    sync_none:"O teclado ainda não recebeu nenhuma config por este app", sync_err:"Não consegui sincronizar",
+    profiles_note:"⚠️ O teclado só aceita <b>gravar</b> — não é possível ler de volta a config que já está nele (limite do hardware). Use os perfis como sua memória: monte aqui, salve, e reenvie quando quiser.",
+    profiles_saved:"Perfis salvos", no_profiles:"— nenhum perfil salvo —", load:"Carregar", del:"Excluir",
+    save_as:"Salvar a config atual como perfil", ph_profile:"nome do perfil…", save:"Salvar",
+    load_example:"✨ Carregar exemplo", start_blank:"Começar do zero",
+    prof_loaded:(n)=>`Perfil "${n}" carregado`, confirm_del:(n)=>`Excluir o perfil "${n}"?`, prof_deleted:"Perfil excluído",
+    name_profile:"Dê um nome ao perfil", confirm_overwrite:(n)=>`Já existe um perfil "${n}". Substituir?`, prof_saved:(n)=>`Perfil "${n}" salvo`,
+    example_loaded:"Layout de exemplo carregado", confirm_clear:"Limpar todas as 3 layers?", all_clear:"Tudo limpo",
+    err_delay:"delay deve ser 0–65535", err_maxsteps:"máx. 5 passos na sequência", err_invalid:(a)=>`"${a}" não é uma tecla/combo válido`
+  },
+  en: {
+    checking:"Checking…",
+    sync:"Sync", sync_title:"Bring back the last config sent to the keyboard",
+    import:"Import", import_title:"Import YAML",
+    export:"Export", export_title:"Export YAML",
+    validate:"Validate", send:"Send to keyboard",
+    usbdk_body:'<b>USBDK is not installed</b> — without it Windows won\'t let it <b>write</b> to the keyboard (the "Connected" status above is just detection). Install the driver, re‑plug the USB cable and try sending again.',
+    usbdk_btn:"Download USBDK",
+    hd_device:"Device", hd_led:"Lighting (LED)", hd_action:"Action", hd_config:"Config (YAML)",
+    copy:"Copy", hd_settings:"Keyboard settings", hd_profiles:"Profiles",
+    lbl_orientation:"Orientation", lbl_model:"Model", lbl_rows:"Rows", lbl_cols:"Columns", lbl_knobs:"Knobs",
+    orient_normal:"Normal (knobs on the right)", orient_upsidedown:"Upside down",
+    orient_cw:"Vertical ↻ (knobs at bottom)", orient_ccw:"Vertical ↺ (knobs on top)",
+    apply_layout:"Apply layout",
+    settings_hint:'Pick the orientation of how you <b>hold</b> the keyboard. <b>Vertical ↺ (knobs on top)</b> is yours — the editor then draws 3 columns × 4 rows and what you click is exactly the key you press. The <b>Rows/Columns</b> fields are the internal base (normal, knobs on the right); you usually don\'t need to touch them.',
+    foot:'<b style="color:var(--muted)">Keypad Studio</b> — a GUI for <a href="https://github.com/kriomant/ch57x-keyboard-tool" target="_blank" rel="noopener">ch57x-keyboard-tool</a> by Mikhail Trishchenkov (MIT/Apache-2.0). Connect the keyboard via USB · on Windows you need <a href="https://github.com/daynix/UsbDk/releases" target="_blank" rel="noopener">USBDK</a> installed to send.',
+    layer:"Layer", layer_sub:"layer", empty:"empty",
+    insp_empty1:"Select a key or knob on the device<br>to configure its action.",
+    insp_empty2:"12 keys · 2 knobs (↺ turn · ● press · ↻ turn) · 3 layers",
+    key_word:"Key", no_action:"— no action —", clear:"Clear",
+    tab_key:"Key", tab_combo:"Shortcut", tab_macro:"Macro", tab_mouse:"Mouse", tab_media:"Media", tab_raw:"Advanced",
+    act_ccw:"turn counterclockwise ↺", act_press:"press ●", act_cw:"turn clockwise ↻",
+    rowcol:(r,c,l)=>`row ${r}, column ${c} · Layer ${l}`,
+    search_key:"Search key…",
+    hint_key:'Sets a single keypress. For Ctrl/Shift combos use the <b>Shortcut</b> tab. Custom HID code: <code>&lt;110&gt;</code>.',
+    cat_custom:"Custom HID", no_keys:"No key found",
+    cat_letters:"Letters", cat_numbers:"Numbers", cat_function:"Function", cat_navigation:"Navigation",
+    cat_symbols:"Symbols", cat_numpad:"Numpad", cat_macos:"macOS",
+    fl_mods:"Modifiers", fl_key:"Key", combo_empty:"pick modifiers and/or a key", apply_combo:"Apply shortcut",
+    fl_steps:"Sequence steps (max 5)", ph_step:"e.g. ctrl-c  ·  enter  ·  a", add_step:"+ Add step",
+    fl_delay:"Delay between steps (ms, optional)", ph_delay:"e.g. 100",
+    hint_macro:'Each step is a key or combo (<code>ctrl-c</code>). The sequence <code>h,e,l,l,o</code> types "hello". Max 5 steps.',
+    macro_empty:"add at least one step", apply_macro:"Apply macro",
+    fl_type:"Type", mouse_click:"Click", mouse_scroll:"Scroll", mouse_move:"Move", mouse_drag:"Drag",
+    fl_modifier_opt:"Modifier (optional)", fl_buttons:"Buttons",
+    fl_offset:"Offset (−128 to 127)", fl_amount:"Amount (−128 to 127, + up / − down)",
+    mouse_cfg:"configure the action", apply_mouse:"Apply mouse action",
+    fl_media:"Media & system keys", hint_media:"Media keys can't be combined with modifiers or other keys.",
+    media:{play:"⏯ Play/Pause",stop:"⏹ Stop",prev:"⏮ Previous",next:"⏭ Next",mute:"🔇 Mute",
+      volumeup:"🔊 Volume +",volumedown:"🔉 Volume −",screenbrightnessup:"☀ Brightness +",screenbrightnessdown:"🌙 Brightness −",
+      favorites:"★ Favorites",calculator:"🖩 Calculator",screenlock:"🔒 Lock",webpagehome:"🏠 Home",webpageback:"← Back",webpageforward:"→ Forward"},
+    fl_raw:"Action (ch57x-keyboard-tool syntax)", ph_raw:"e.g. ctrl-alt-del  ·  {delay(50)}h,i  ·  click(left+right)",
+    apply:"Apply", syntax_ok:"✓ valid syntax",
+    hint_raw:'Modifiers: <code>ctrl shift alt win</code> (+ right: <code>rctrl…</code>). Comma sequence (up to 5): <code>a,b,c</code>. Delay: <code>{delay(100)}…</code>. Mouse: <code>click</code> <code>move(x,y)</code> <code>wheel(n)</code> <code>drag(left,x,y)</code>.',
+    led_mode:"Mode", led_off:"Off", led_backlight:"Backlight (steady)", led_press:"Light on press", led_shock:"Shock", led_shock2:"Shock 2",
+    led_color:"Color", led_layer:"Apply to layer", led_all:"All",
+    led_simple_hint:"This model (0x8890) only lets you select the built‑in LED mode by number. Usually <code>1</code> = steady on.",
+    led_mode_num:"Mode (number)", apply_led:"Apply lighting to keyboard", led_need_bridge:"Launch via the shortcut (bridge) to send to the keyboard",
+    led_applying:"Applying…", led_applied:"✓ lighting applied to keyboard", led_failed:"failed", comm_err:"communication error",
+    pill_preview:"Preview mode (no bridge)", pill_notdetected:"Keyboard not detected",
+    pill_connected:(m,v,p)=>`Connected · ${m} (${v}:${p})`,
+    model_detected:(m)=>`Model detected: ${m}`, led_modelpill:(m)=>`model: ${m}`,
+    validating:"Validating…", valid_ok:"Config is valid 👌", valid_bad:"Invalid config — see details",
+    valid_err:"Error while validating", valid_local_ok:"Config valid (local check) ✓",
+    valid_local_bad:(n)=>`${n} action(s) with problems — see highlights`, validate_dlg:"Validation:",
+    need_bridge_send:"Launch via the shortcut to send to the keyboard", connect_usb:"Connect the keyboard via USB",
+    confirm_upload:"Send this configuration to the keyboard?\n\nAll 3 layers will be written to the device.",
+    sending:"Sending…", sent_ok:"Sent successfully 🎉", sent_fail:"Failed to send",
+    upload_tech:"Technical details:", send_err:"Error while sending",
+    export_ok:"YAML exported", import_ok:"Config imported ✓", import_err:"Couldn't read that YAML",
+    layout_applied:"Layout applied", yaml_copied:"YAML copied", copy_fail:"couldn't copy",
+    sync_need_bridge:"Launch via the shortcut (bridge) to sync", synced_ok:"Synced with the keyboard ✓",
+    sync_none:"The keyboard hasn't received any config from this app yet", sync_err:"Couldn't sync",
+    profiles_note:"⚠️ The keyboard can only be <b>written</b> to — there's no way to read back the config already on it (hardware limit). Use profiles as your memory: build it here, save, and re‑send whenever you want.",
+    profiles_saved:"Saved profiles", no_profiles:"— no saved profiles —", load:"Load", del:"Delete",
+    save_as:"Save current config as a profile", ph_profile:"profile name…", save:"Save",
+    load_example:"✨ Load example", start_blank:"Start from scratch",
+    prof_loaded:(n)=>`Profile "${n}" loaded`, confirm_del:(n)=>`Delete profile "${n}"?`, prof_deleted:"Profile deleted",
+    name_profile:"Give the profile a name", confirm_overwrite:(n)=>`A profile "${n}" already exists. Replace it?`, prof_saved:(n)=>`Profile "${n}" saved`,
+    example_loaded:"Example layout loaded", confirm_clear:"Clear all 3 layers?", all_clear:"All cleared",
+    err_delay:"delay must be 0–65535", err_maxsteps:"max 5 steps in the sequence", err_invalid:(a)=>`"${a}" is not a valid key/combo`
+  }
 };
-const ALL_KEYS = new Set(Object.values(KEYS).flat());
+let lang = "en";
+try{ lang = localStorage.getItem("keypad-lang") || ((navigator.language||"").toLowerCase().startsWith("pt") ? "pt" : "en"); }catch(e){}
+function t(k){ const v=(I18N[lang]&&I18N[lang][k]); return (v!=null)?v:(I18N.en[k]!=null?I18N.en[k]:k); }
+
+/* ============================ DATA ============================ */
+const KEY_CATS = [
+  ["letters",["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]],
+  ["numbers",["1","2","3","4","5","6","7","8","9","0"]],
+  ["function",["f1","f2","f3","f4","f5","f6","f7","f8","f9","f10","f11","f12","f13","f14","f15","f16","f17","f18","f19","f20","f21","f22","f23","f24"]],
+  ["navigation",["enter","escape","backspace","tab","space","insert","home","pageup","delete","end","pagedown","left","right","up","down","capslock","printscreen"]],
+  ["symbols",["minus","equal","leftbracket","rightbracket","backslash","semicolon","quote","grave","comma","dot","slash","nonushash","nonusbackslash","application","power"]],
+  ["numpad",["numlock","numpadslash","numpadasterisk","numpadminus","numpadplus","numpadenter","numpad0","numpad1","numpad2","numpad3","numpad4","numpad5","numpad6","numpad7","numpad8","numpad9","numpaddot","numpadequal"]],
+  ["macos",["macbrightnessdown","macbrightnessup"]]
+];
+const ALL_KEYS = new Set(KEY_CATS.flatMap(([,list])=>list));
 const MODS = [["ctrl","Ctrl"],["shift","Shift"],["alt","Alt / Opt"],["win","Win / Cmd"],["rctrl","R-Ctrl"],["rshift","R-Shift"],["ralt","R-Alt"],["rwin","R-Win"]];
 const MOD_NAMES = new Set(["ctrl","shift","alt","opt","win","cmd","rctrl","rshift","ralt","ropt","rwin","rcmd"]);
 const MEDIA = ["play","stop","prev","next","mute","volumeup","volumedown","screenbrightnessup","screenbrightnessdown","favorites","calculator","screenlock","webpagehome","webpageback","webpageforward"];
 const MEDIA_SET = new Set([...MEDIA,"previous"]);
 const MOUSE_MODS = [["","—"],["ctrl","Ctrl"],["shift","Shift"],["alt","Alt"]];
 const LED_COLORS = [["red","#ff4d4d"],["orange","#ff9d3c"],["yellow","#ffe14d"],["green","#49d07f"],["cyan","#4de1ff"],["blue","#4d7cff"],["purple","#b07cff"],["white","#ffffff"]];
-
-/* ===== device model map for detection hints ===== */
-const VIDPID = { "1189:8840":"ch57x-1","1189:8842":"ch57x-1","1189:8850":"ch57x-1","514c:8851":"ch57x-1","1189:8890":"ch57x-2","514c:8850":"ch57x-3" };
 
 /* ============================ STATE ============================ */
 let bridge = false, device = null, usbdk = true, userPickedModel = false, modelAutoNotified = false;
@@ -420,14 +569,12 @@ const state = {
   layers:[]
 };
 function isVertical(){ return state.orientation==="clockwise"||state.orientation==="counterclockwise"; }
-// Editor/authoring grid dimensions: vertical orientations swap rows<->columns (knobs on top).
 function gridDims(){ return isVertical() ? {gr:state.columns, gc:state.rows} : {gr:state.rows, gc:state.columns}; }
 function blankLayer(){
   const {gr,gc}=gridDims();
   return { buttons:Array.from({length:gr},()=>Array(gc).fill(null)),
            knobs:Array.from({length:state.knobs},()=>({ccw:null,press:null,cw:null})) };
 }
-// Rebuild every layer's grid to the current dimensions, preserving cells by position.
 function rebuildToDims(){
   const {gr,gc}=gridDims();
   state.layers=state.layers.map(L=>({
@@ -438,10 +585,8 @@ function rebuildToDims(){
 function initLayers(){ state.layers=[blankLayer(),blankLayer(),blankLayer()]; }
 initLayers();
 
-// selection: {type:'button',r,c} | {type:'knob',i,act:'ccw'|'press'|'cw'}
 let sel=null;
-let tab="key";           // inspector tab
-// editor scratch for combo/macro
+let tab="key";
 let comboMods=new Set(), comboKey="";
 let macroSteps=[{mods:new Set(),key:""}];
 let macroDelay="";
@@ -468,7 +613,6 @@ function setVal(s,v){
   renderDevice(); renderYaml(); renderInspector(); save();
 }
 
-/* color per keycap based on content hash (for the RGB accent) */
 function kcColor(v){
   if(!v) return ["linear-gradient(90deg,#2a3147,#20273a)","rgba(0,0,0,0)"];
   let h=0;for(const ch of v)h=(h*31+ch.charCodeAt(0))%360;
@@ -478,7 +622,6 @@ function kcColor(v){
 
 /* ===================== LOCAL VALIDATION ===================== */
 function validAccord(a){
-  // (mod-)* (key|mod)   OR  <num>
   if(/^<\d{1,3}>$/.test(a)){const n=+a.slice(1,-1);return n>=0&&n<=255;}
   const parts=a.split("-");
   if(parts.some(p=>p==="")) return false;
@@ -509,26 +652,25 @@ function validateAction(s){
   if(validMouse(s)) return {ok:true};
   let body=s, delay=null;
   const dm=s.match(/^\{delay\((\d+)\)\}(.+)$/);
-  if(dm){delay=+dm[1];body=dm[2];if(delay<0||delay>65535)return{ok:false,err:"delay deve ser 0–65535"};}
+  if(dm){delay=+dm[1];body=dm[2];if(delay<0||delay>65535)return{ok:false,err:t("err_delay")};}
   const accords=body.split(",");
-  if(accords.length>5) return {ok:false,err:"máx. 5 passos na sequência"};
-  for(const a of accords){ if(!validAccord(a.trim())) return {ok:false,err:`"${a}" não é uma tecla/combo válido`}; }
+  if(accords.length>5) return {ok:false,err:t("err_maxsteps")};
+  for(const a of accords){ if(!validAccord(a.trim())) return {ok:false,err:t("err_invalid")(a)}; }
   return {ok:true};
 }
 
 /* ===================== RENDER : LAYERS ===================== */
 function renderLayers(){
-  const t=$("#layerTabs"); t.innerHTML="";
+  const box=$("#layerTabs"); box.innerHTML="";
   for(let i=0;i<3;i++){
-    const b=el("button",i===state.layer?"active":"",`Layer ${i+1}<span class="lp">camada ${i+1}</span>`);
+    const b=el("button",i===state.layer?"active":"",`${t("layer")} ${i+1}<span class="lp">${t("layer_sub")} ${i+1}</span>`);
     b.onclick=()=>{state.layer=i;sel=null;renderAll();};
-    t.appendChild(b);
+    box.appendChild(b);
   }
 }
 
 /* ===================== RENDER : DEVICE ===================== */
 function renderDevice(){
-  // knobs
   const kn=$("#knobs"); kn.innerHTML="";
   const L=state.layers[state.layer];
   for(let i=0;i<state.knobs;i++){
@@ -553,7 +695,6 @@ function renderDevice(){
   }
   kn.style.display = state.knobs? "flex":"none";
 
-  // keys
   const g=$("#keys"); g.innerHTML="";
   const {gr,gc}=gridDims();
   g.style.gridTemplateColumns=`repeat(${gc},1fr)`;
@@ -563,7 +704,7 @@ function renderDevice(){
     const s=sel&&sel.type==="button"&&sel.r===r&&sel.c===c;
     const cap=el("div","keycap"+(s?" sel":""));
     const [kc,kcg]=kcColor(v); cap.style.setProperty("--kc",kc); cap.style.setProperty("--kcg",kcg);
-    cap.innerHTML=`<span class="num">${n}</span><span class="val ${v?"":"empty"}">${v?esc(short(v)):"vazio"}</span>`;
+    cap.innerHTML=`<span class="num">${n}</span><span class="val ${v?"":"empty"}">${v?esc(short(v)):t("empty")}</span>`;
     cap.onclick=()=>select({type:"button",r,c});
     g.appendChild(cap); n++;
   }
@@ -589,7 +730,6 @@ function syncScratchFromValue(){
     if(!MOD_NAMES.has(last.toLowerCase())){comboKey=last;parts.slice(0,-1).forEach(m=>comboMods.add(m.toLowerCase()));}
     else parts.forEach(m=>comboMods.add(m.toLowerCase()));
   }
-  // macro
   macroDelay=""; macroSteps=[{mods:new Set(),key:""}];
   if(v && (v.includes(",")||v.startsWith("{"))){
     let body=v;const dm=v.match(/^\{delay\((\d+)\)\}(.+)$/);if(dm){macroDelay=dm[1];body=dm[2];}
@@ -603,12 +743,12 @@ function syncScratchFromValue(){
 
 function renderInspector(){
   const box=$("#inspector");
-  if(!sel){ box.innerHTML=`<div class="insp-empty">Selecione uma tecla ou knob no dispositivo<br>para configurar a ação dela.<br><br>
-    <span style="color:var(--faint-2);font-size:12px">12 teclas · 2 knobs (↺ girar · ● apertar · ↻ girar) · 3 layers</span></div>`; return; }
+  if(!sel){ box.innerHTML=`<div class="insp-empty">${t("insp_empty1")}<br><br>
+    <span style="color:var(--faint-2);font-size:12px">${t("insp_empty2")}</span></div>`; return; }
   const v=getVal(sel);
-  const title = sel.type==="button" ? `Tecla ${sel.r*gridDims().gc+sel.c+1}` : `Knob ${sel.i+1}`;
-  const subtitle = sel.type==="button" ? `linha ${sel.r+1}, coluna ${sel.c+1} · Layer ${state.layer+1}`
-    : `${({ccw:"girar anti-horário ↺",press:"apertar ●",cw:"girar horário ↻"})[sel.act]} · Layer ${state.layer+1}`;
+  const title = sel.type==="button" ? `${t("key_word")} ${sel.r*gridDims().gc+sel.c+1}` : `Knob ${sel.i+1}`;
+  const subtitle = sel.type==="button" ? t("rowcol")(sel.r+1,sel.c+1,state.layer+1)
+    : `${({ccw:t("act_ccw"),press:t("act_press"),cw:t("act_cw")})[sel.act]} · Layer ${state.layer+1}`;
 
   box.innerHTML="";
   const head=el("div","insp-head");
@@ -616,13 +756,13 @@ function renderInspector(){
   box.appendChild(head);
 
   const cur=el("div","cur");
-  cur.innerHTML=`<code class="${v?"":"empty"}">${v?esc(v):"— sem ação —"}</code>`;
-  if(v){const x=el("button","x","Limpar");x.onclick=()=>setVal(sel,null);cur.appendChild(x);}
+  cur.innerHTML=`<code class="${v?"":"empty"}">${v?esc(v):t("no_action")}</code>`;
+  if(v){const x=el("button","x",t("clear"));x.onclick=()=>setVal(sel,null);cur.appendChild(x);}
   box.appendChild(cur);
 
   const tabsEl=el("div","tabs");
-  for(const [id,label] of [["key","Tecla"],["combo","Atalho"],["macro","Macro"],["mouse","Mouse"],["media","Mídia"],["raw","Avançado"]]){
-    const b=el("button",tab===id?"active":"",label); b.onclick=()=>{tab=id;renderInspector();}; tabsEl.appendChild(b);
+  for(const [id,lkey] of [["key","tab_key"],["combo","tab_combo"],["macro","tab_macro"],["mouse","tab_mouse"],["media","tab_media"],["raw","tab_raw"]]){
+    const b=el("button",tab===id?"active":"",t(lkey)); b.onclick=()=>{tab=id;renderInspector();}; tabsEl.appendChild(b);
   }
   box.appendChild(tabsEl);
 
@@ -634,29 +774,29 @@ function renderInspector(){
 function paneKey(p){
   const sw=el("div","search-wrap");
   sw.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>`;
-  const inp=el("input");inp.type="search";inp.placeholder="Buscar tecla…";inp.value=keySearch;
+  const inp=el("input");inp.type="search";inp.placeholder=t("search_key");inp.value=keySearch;
   inp.oninput=()=>{keySearch=inp.value;const g=$(".keygrid",p);g.innerHTML=keyGridHtml();bindKeyGrid(g);};
   sw.appendChild(inp);p.appendChild(sw);
   const g=el("div","keygrid",keyGridHtml());p.appendChild(g);bindKeyGrid(g);
-  const h=el("div","hint",`Define um único toque. Para combinações com Ctrl/Shift use a aba <b>Atalho</b>. Código HID custom: <code>&lt;110&gt;</code>.`);
+  const h=el("div","hint",t("hint_key"));
   p.appendChild(h);
 }
 function keyGridHtml(){
   const q=keySearch.trim().toLowerCase();let html="";
-  for(const [cat,list] of Object.entries(KEYS)){
+  for(const [cat,list] of KEY_CATS){
     const f=list.filter(k=>!q||k.includes(q));
     if(!f.length)continue;
-    html+=`<div class="cat">${cat}</div>`;
+    html+=`<div class="cat">${t("cat_"+cat)}</div>`;
     html+=f.map(k=>`<button class="chip key" data-k="${k}">${esc(k)}</button>`).join("");
   }
-  if(q && /^\d{1,3}$/.test(q)) html+=`<div class="cat">Custom HID</div><button class="chip key" data-k="&lt;${q}&gt;">&lt;${q}&gt;</button>`;
-  return html||`<div class="cat">Nenhuma tecla encontrada</div>`;
+  if(q && /^\d{1,3}$/.test(q)) html+=`<div class="cat">${t("cat_custom")}</div><button class="chip key" data-k="&lt;${q}&gt;">&lt;${q}&gt;</button>`;
+  return html||`<div class="cat">${t("no_keys")}</div>`;
 }
 function bindKeyGrid(g){$$(".chip",g).forEach(b=>b.onclick=()=>setVal(sel,b.dataset.k));}
 
 /* ---- tab: combo ---- */
 function paneCombo(p){
-  p.appendChild(el("div","field-label","Modificadores"));
+  p.appendChild(el("div","field-label",t("fl_mods")));
   const chips=el("div","chips");
   for(const [id,label] of MODS){
     const c=el("div","chip"+(comboMods.has(id)?" on":""),label);
@@ -664,10 +804,10 @@ function paneCombo(p){
     chips.appendChild(c);
   }
   p.appendChild(chips);
-  p.appendChild(el("div","field-label","Tecla"));
+  p.appendChild(el("div","field-label",t("fl_key")));
   const sw=el("div","search-wrap");
   sw.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>`;
-  const inp=el("input");inp.type="search";inp.placeholder="Buscar tecla…";inp.value=keySearch;
+  const inp=el("input");inp.type="search";inp.placeholder=t("search_key");inp.value=keySearch;
   inp.oninput=()=>{keySearch=inp.value;const g=$(".keygrid",p);g.innerHTML=comboGridHtml();bindComboGrid(g);};
   sw.appendChild(inp);p.appendChild(sw);
   const g=el("div","keygrid",comboGridHtml());p.appendChild(g);bindComboGrid(g);
@@ -675,9 +815,9 @@ function paneCombo(p){
 }
 function comboGridHtml(){
   const q=keySearch.trim().toLowerCase();let html="";
-  for(const [cat,list] of Object.entries(KEYS)){
+  for(const [cat,list] of KEY_CATS){
     const f=list.filter(k=>!q||k.includes(q));if(!f.length)continue;
-    html+=`<div class="cat">${cat}</div>`+f.map(k=>`<button class="chip key${k===comboKey?" on":""}" data-k="${k}">${esc(k)}</button>`).join("");
+    html+=`<div class="cat">${t("cat_"+cat)}</div>`+f.map(k=>`<button class="chip key${k===comboKey?" on":""}" data-k="${k}">${esc(k)}</button>`).join("");
   }
   return html;
 }
@@ -690,22 +830,22 @@ function buildCombo(){
 function renderComboPreview(p){
   const val=buildCombo();
   const prev=el("div","cur");prev.style.marginTop="16px";
-  prev.innerHTML=`<code class="${val?"":"empty"}">${val?esc(val):"escolha modificadores e/ou tecla"}</code>`;
+  prev.innerHTML=`<code class="${val?"":"empty"}">${val?esc(val):t("combo_empty")}</code>`;
   p.appendChild(prev);
   const row=el("div","apply-row");
-  const ap=el("button","btn primary","Aplicar atalho");ap.style.flex="1";
+  const ap=el("button","btn primary",t("apply_combo"));ap.style.flex="1";
   ap.disabled=!val; ap.onclick=()=>setVal(sel,val);
   row.appendChild(ap);p.appendChild(row);
 }
 
 /* ---- tab: macro ---- */
 function paneMacro(p){
-  p.appendChild(el("div","field-label","Passos da sequência (máx. 5)"));
+  p.appendChild(el("div","field-label",t("fl_steps")));
   const steps=el("div","steps");
   macroSteps.forEach((st,i)=>{
     const row=el("div","step");
     row.appendChild(el("span","idx",i+1));
-    const inp=el("input");inp.type="text";inp.className="mono";inp.placeholder="ex: ctrl-c  ·  enter  ·  a";
+    const inp=el("input");inp.type="text";inp.className="mono";inp.placeholder=t("ph_step");
     inp.value=stepStr(st);
     inp.oninput=()=>{macroSteps[i]=parseStep(inp.value);};
     row.appendChild(inp);
@@ -714,24 +854,24 @@ function paneMacro(p){
     steps.appendChild(row);
   });
   p.appendChild(steps);
-  const add=el("button","btn ghost","+ Adicionar passo");add.style.width="100%";add.style.justifyContent="center";
+  const add=el("button","btn ghost",t("add_step"));add.style.width="100%";add.style.justifyContent="center";
   add.disabled=macroSteps.length>=5;
   add.onclick=()=>{macroSteps.push({mods:new Set(),key:""});renderInspector();};
   p.appendChild(add);
 
-  p.appendChild(el("div","field-label","Delay entre passos (ms, opcional)"));
-  const d=el("input");d.type="number";d.min="0";d.max="65535";d.placeholder="ex: 100";d.value=macroDelay;
+  p.appendChild(el("div","field-label",t("fl_delay")));
+  const d=el("input");d.type="number";d.min="0";d.max="65535";d.placeholder=t("ph_delay");d.value=macroDelay;
   d.oninput=()=>{macroDelay=d.value;};
   p.appendChild(d);
 
-  const h=el("div","hint",`Cada passo é uma tecla ou combo (<code>ctrl-c</code>). A sequência <code>h,e,l,l,o</code> digita "hello". Máx. 5 passos.`);
+  const h=el("div","hint",t("hint_macro"));
   p.appendChild(h);
 
   const val=buildMacro();
   const prev=el("div","cur");prev.style.marginTop="14px";
-  prev.innerHTML=`<code class="${val?"":"empty"}">${val?esc(val):"adicione pelo menos um passo"}</code>`;
+  prev.innerHTML=`<code class="${val?"":"empty"}">${val?esc(val):t("macro_empty")}</code>`;
   p.appendChild(prev);
-  const ap=el("button","btn primary","Aplicar macro");ap.style.width="100%";ap.style.justifyContent="center";ap.style.marginTop="10px";
+  const ap=el("button","btn primary",t("apply_macro"));ap.style.width="100%";ap.style.justifyContent="center";ap.style.marginTop="10px";
   ap.disabled=!val||!validateAction(val).ok; ap.onclick=()=>setVal(sel,val);
   p.appendChild(ap);
   if(val && !validateAction(val).ok){const e=el("div","msg err show",validateAction(val).err);p.appendChild(e);}
@@ -750,13 +890,13 @@ function buildMacro(){
 /* ---- tab: mouse ---- */
 let mouseKind="click";
 function paneMouse(p){
-  p.appendChild(el("div","field-label","Tipo"));
+  p.appendChild(el("div","field-label",t("fl_type")));
   const seg=el("div","seg");
-  for(const [id,label] of [["click","Clique"],["wheel","Scroll"],["move","Mover"],["drag","Arrastar"]]){
-    const b=el("button",mouseKind===id?"active":"",label);b.onclick=()=>{mouseKind=id;renderInspector();};seg.appendChild(b);
+  for(const [id,lkey] of [["click","mouse_click"],["wheel","mouse_scroll"],["move","mouse_move"],["drag","mouse_drag"]]){
+    const b=el("button",mouseKind===id?"active":"",t(lkey));b.onclick=()=>{mouseKind=id;renderInspector();};seg.appendChild(b);
   }
   p.appendChild(seg);
-  p.appendChild(el("div","field-label","Modificador (opcional)"));
+  p.appendChild(el("div","field-label",t("fl_modifier_opt")));
   const mm=el("div","chips");
   window._mmouse=window._mmouse||"";
   for(const [id,label] of MOUSE_MODS){
@@ -768,7 +908,7 @@ function paneMouse(p){
   const box=el("div");box.style.marginTop="6px";p.appendChild(box);
   window._mbtn=window._mbtn||{left:true,right:false,middle:false};
   if(mouseKind==="click"||mouseKind==="drag"){
-    box.appendChild(el("div","field-label","Botões"));
+    box.appendChild(el("div","field-label",t("fl_buttons")));
     const bc=el("div","chips");
     for(const b of ["left","right","middle"]){
       const c=el("div","chip"+(window._mbtn[b]?" on":""),b);c.onclick=()=>{window._mbtn[b]=!window._mbtn[b];renderInspector();};bc.appendChild(c);
@@ -776,7 +916,7 @@ function paneMouse(p){
     box.appendChild(bc);
   }
   if(mouseKind==="move"||mouseKind==="drag"){
-    box.appendChild(el("div","field-label","Deslocamento (−128 a 127)"));
+    box.appendChild(el("div","field-label",t("fl_offset")));
     const row=el("div","row");
     window._mx=window._mx??0;window._my=window._my??0;
     const x=el("input");x.type="number";x.min=-128;x.max=127;x.value=window._mx;x.oninput=()=>{window._mx=x.value;upd();};
@@ -785,14 +925,14 @@ function paneMouse(p){
     row.appendChild(lx);row.appendChild(x);row.appendChild(ly);row.appendChild(y);box.appendChild(row);
   }
   if(mouseKind==="wheel"){
-    box.appendChild(el("div","field-label","Quantidade (−128 a 127, + sobe / − desce)"));
+    box.appendChild(el("div","field-label",t("fl_amount")));
     window._mw=window._mw??1;
     const w=el("input");w.type="number";w.min=-128;w.max=127;w.value=window._mw;w.oninput=()=>{window._mw=w.value;upd();};
     box.appendChild(w);
   }
   const prev=el("div","cur");prev.style.marginTop="16px";p.appendChild(prev);
-  const ap=el("button","btn primary","Aplicar ação de mouse");ap.style.width="100%";ap.style.justifyContent="center";ap.style.marginTop="10px";p.appendChild(ap);
-  function upd(){const val=buildMouse();prev.innerHTML=`<code class="${val?"":"empty"}">${val?esc(val):"configure a ação"}</code>`;
+  const ap=el("button","btn primary",t("apply_mouse"));ap.style.width="100%";ap.style.justifyContent="center";ap.style.marginTop="10px";p.appendChild(ap);
+  function upd(){const val=buildMouse();prev.innerHTML=`<code class="${val?"":"empty"}">${val?esc(val):t("mouse_cfg")}</code>`;
     ap.disabled=!val||!validMouse(val);}
   ap.onclick=()=>{const val=buildMouse();if(val)setVal(sel,val);};
   upd();
@@ -810,33 +950,31 @@ function clampN(v){v=Math.round(+v||0);return Math.max(-128,Math.min(127,v));}
 
 /* ---- tab: media ---- */
 function paneMedia(p){
-  p.appendChild(el("div","field-label","Teclas de mídia & sistema"));
+  p.appendChild(el("div","field-label",t("fl_media")));
   const g=el("div","chips");
   const cur=getVal(sel);
-  const labels={play:"⏯ Play/Pause",stop:"⏹ Stop",prev:"⏮ Anterior",next:"⏭ Próxima",mute:"🔇 Mudo",
-    volumeup:"🔊 Volume +",volumedown:"🔉 Volume −",screenbrightnessup:"☀ Brilho +",screenbrightnessdown:"🌙 Brilho −",
-    favorites:"★ Favoritos",calculator:"🖩 Calculadora",screenlock:"🔒 Bloquear",webpagehome:"🏠 Home",webpageback:"← Voltar",webpageforward:"→ Avançar"};
+  const labels=t("media");
   for(const m of MEDIA){
     const c=el("div","chip"+((cur&&cur.toLowerCase()===m)?" on":""),labels[m]||m);c.style.fontFamily="var(--sans)";
     c.onclick=()=>setVal(sel,m);g.appendChild(c);
   }
   p.appendChild(g);
-  p.appendChild(el("div","hint","Teclas de mídia não podem ser combinadas com modificadores ou outras teclas."));
+  p.appendChild(el("div","hint",t("hint_media")));
 }
 
 /* ---- tab: raw ---- */
 function paneRaw(p){
-  p.appendChild(el("div","field-label","Ação (sintaxe do ch57x-keyboard-tool)"));
-  const inp=el("input");inp.type="text";inp.className="mono";inp.placeholder="ex: ctrl-alt-del  ·  {delay(50)}h,i  ·  click(left+right)";
+  p.appendChild(el("div","field-label",t("fl_raw")));
+  const inp=el("input");inp.type="text";inp.className="mono";inp.placeholder=t("ph_raw");
   inp.value=getVal(sel)||"";
   const msg=el("div","msg");
-  inp.oninput=()=>{const r=validateAction(inp.value);if(!inp.value.trim()){msg.className="msg";}else if(r.ok){msg.className="msg show ok";msg.textContent="✓ sintaxe válida";}else{msg.className="msg show err";msg.textContent="✕ "+r.err;}};
+  inp.oninput=()=>{const r=validateAction(inp.value);if(!inp.value.trim()){msg.className="msg";}else if(r.ok){msg.className="msg show ok";msg.textContent=t("syntax_ok");}else{msg.className="msg show err";msg.textContent="✕ "+r.err;}};
   p.appendChild(inp);
   const row=el("div","apply-row");
-  const ap=el("button","btn primary","Aplicar");ap.onclick=()=>{const r=validateAction(inp.value);if(r.ok||!inp.value.trim())setVal(sel,inp.value);else toast(r.err,"err");};
+  const ap=el("button","btn primary",t("apply"));ap.onclick=()=>{const r=validateAction(inp.value);if(r.ok||!inp.value.trim())setVal(sel,inp.value);else toast(r.err,"err");};
   row.appendChild(ap);p.appendChild(row);
   p.appendChild(msg);
-  const h=el("div","hint",`Modificadores: <code>ctrl shift alt win</code> (+ right: <code>rctrl…</code>). Sequência com vírgula (até 5): <code>a,b,c</code>. Delay: <code>{delay(100)}…</code>. Mouse: <code>click</code> <code>move(x,y)</code> <code>wheel(n)</code> <code>drag(left,x,y)</code>.`);
+  const h=el("div","hint",t("hint_raw"));
   p.appendChild(h);
 }
 
@@ -879,18 +1017,18 @@ function renderYaml(){ $("#yaml").innerHTML=hl(buildYaml()); }
 let ledState={mode:"backlight",color:"blue",layer:"all",simple:1};
 function renderLed(){
   const model = (device&&device.model) || state.model;
-  $("#ledModelPill").textContent = device? `${device.vid||""}:${device.pid||""} · ${model}` : `modelo: ${model}`;
+  $("#ledModelPill").textContent = device? `${device.vid||""}:${device.pid||""} · ${model}` : t("led_modelpill")(model);
   const body=$("#ledBody");body.innerHTML="";
-  const rich = model==="ch57x-1"; // 0x8840/0x8842 style rich modes
+  const rich = model==="ch57x-1";
   if(rich){
-    body.appendChild(el("div","field-label","Modo"));
+    body.appendChild(el("div","field-label",t("led_mode")));
     const seg=el("div","seg");
-    for(const [id,label] of [["off","Apagado"],["backlight","Backlight fixo"],["press","Acende ao apertar"],["shock","Shock"],["shock2","Shock 2"]]){
-      const b=el("button",ledState.mode===id?"active":"",label);b.onclick=()=>{ledState.mode=id;renderLed();};seg.appendChild(b);
+    for(const [id,lkey] of [["off","led_off"],["backlight","led_backlight"],["press","led_press"],["shock","led_shock"],["shock2","led_shock2"]]){
+      const b=el("button",ledState.mode===id?"active":"",t(lkey));b.onclick=()=>{ledState.mode=id;renderLed();};seg.appendChild(b);
     }
     body.appendChild(seg);
     if(ledState.mode!=="off"){
-      body.appendChild(el("div","field-label","Cor"));
+      body.appendChild(el("div","field-label",t("led_color")));
       const cs=el("div","led-colors");
       for(const [name,hex] of LED_COLORS){
         if(name==="white"&&ledState.mode!=="backlight")continue;
@@ -899,9 +1037,9 @@ function renderLed(){
       }
       body.appendChild(cs);
     }
-    body.appendChild(el("div","field-label","Aplicar na layer"));
+    body.appendChild(el("div","field-label",t("led_layer")));
     const lseg=el("div","seg");
-    for(const [id,label] of [["all","Todas"],["0","Layer 1"],["1","Layer 2"],["2","Layer 3"]]){
+    for(const [id,label] of [["all",t("led_all")],["0","Layer 1"],["1","Layer 2"],["2","Layer 3"]]){
       const b=el("button",String(ledState.layer)===id?"active":"",label);b.onclick=()=>{ledState.layer=id;renderLed();};lseg.appendChild(b);
     }
     body.appendChild(lseg);
@@ -910,8 +1048,8 @@ function renderLed(){
     const cmdPrev = ledState.layer==="all" ? `led 0/1/2 "${modeStr}"` : `led ${ledState.layer} "${modeStr}"`;
     ledPreviewAndApply(body, cmdPrev, layers.map(L=>[String(L),modeStr]));
   } else {
-    body.appendChild(el("div","hint","Este modelo (0x8890) aceita apenas selecionar o modo de LED embutido pelo número. Normalmente <code>1</code> = aceso fixo."));
-    body.appendChild(el("div","field-label","Modo (número)"));
+    body.appendChild(el("div","hint",t("led_simple_hint")));
+    body.appendChild(el("div","field-label",t("led_mode_num")));
     const row=el("div","row");
     const inp=el("input");inp.type="number";inp.min=0;inp.max=9;inp.value=ledState.simple;inp.oninput=()=>{ledState.simple=inp.value;};
     row.appendChild(inp);body.appendChild(row);
@@ -921,8 +1059,8 @@ function renderLed(){
 function ledPreviewAndApply(body,cmd,cmds){
   const prev=el("div","cur");prev.style.marginTop="16px";
   prev.innerHTML=`<code>ch57x-keyboard-tool ${esc(cmd)}</code>`;body.appendChild(prev);
-  const ap=el("button","btn upload","Aplicar iluminação no teclado");ap.style.width="100%";ap.style.justifyContent="center";ap.style.marginTop="10px";
-  ap.disabled=!bridge; if(!bridge)ap.title="Abra pelo atalho (bridge) para enviar ao teclado";
+  const ap=el("button","btn upload",t("apply_led"));ap.style.width="100%";ap.style.justifyContent="center";ap.style.marginTop="10px";
+  ap.disabled=!bridge; if(!bridge)ap.title=t("led_need_bridge");
   ap.onclick=()=>applyLed(cmds);body.appendChild(ap);
   const msg=el("div","msg");msg.id="ledmsg";body.appendChild(msg);
 }
@@ -936,17 +1074,16 @@ async function detectBridge(){
     bridge = !!j.ok; usbdk = (j.usbdk!==false);
   }catch(e){ bridge=false; }
   if(bridge) await refreshStatus();
-  if(bridge && !hadSaved){ await syncFromDevice(true); }  // nova sessão sem nada salvo → traz do teclado
+  if(bridge && !hadSaved){ await syncFromDevice(true); }
   renderPill(); renderLed(); renderBanner();
 }
 async function refreshStatus(){
   if(!bridge){device=null;return;}
   try{ const j=await api("/api/status"); device = j.connected? j : null; }
   catch(e){ device=null; }
-  // Auto-sync model to the connected device (unless the user chose one manually)
   if(device && device.model && !userPickedModel && state.model!==device.model){
     state.model=device.model; syncSettings(); renderYaml(); renderLed(); save();
-    if(!modelAutoNotified){ modelAutoNotified=true; toast(`Modelo detectado: ${device.model}`,"ok"); }
+    if(!modelAutoNotified){ modelAutoNotified=true; toast(t("model_detected")(device.model),"ok"); }
   }
   renderPill(); renderLed();
 }
@@ -955,44 +1092,44 @@ function renderBanner(){
   b.style.display = (bridge && !usbdk) ? "flex" : "none";
 }
 function renderPill(){
-  const p=$("#devpill"),t=$("#devpilltxt");
-  if(!bridge){ p.className="pill warn"; t.textContent="Modo prévia (sem bridge)";
+  const p=$("#devpill"),tx=$("#devpilltxt");
+  if(!bridge){ p.className="pill warn"; tx.textContent=t("pill_preview");
     $("#btnUpload").disabled=true; $("#btnValidate").disabled=false; return; }
   $("#btnUpload").disabled=!device; $("#btnValidate").disabled=false;
-  if(device){ p.className="pill ok"; t.textContent=`Conectado · ${device.model||"ch57x"} (${device.vid}:${device.pid})`; }
-  else { p.className="pill off"; t.textContent="Teclado não detectado"; }
+  if(device){ p.className="pill ok"; tx.textContent=t("pill_connected")(device.model||"ch57x",device.vid,device.pid); }
+  else { p.className="pill off"; tx.textContent=t("pill_notdetected"); }
 }
 
 async function doValidate(){
-  if(!bridge){ // local validation fallback
+  if(!bridge){
     const bad=scanConfigErrors();
-    if(bad.length)toast(`${bad.length} ação(ões) com problema — veja destaques`,"err");
-    else toast("Config válida (verificação local) ✓","ok");
+    if(bad.length)toast(t("valid_local_bad")(bad.length),"err");
+    else toast(t("valid_local_ok"),"ok");
     return;
   }
-  toast("Validando…","info");
+  toast(t("validating"),"info");
   try{
     const j=await api("/api/validate",{method:"POST",headers:{"Content-Type":"text/plain"},body:buildYaml()});
-    toast(j.ok?"Config válida 👌":"Config inválida — veja o detalhe", j.ok?"ok":"err");
-    if(!j.ok) alert("Validação:\n\n"+(j.output||""));
-  }catch(e){ toast("Erro ao validar","err"); }
+    toast(j.ok?t("valid_ok"):t("valid_bad"), j.ok?"ok":"err");
+    if(!j.ok) alert(t("validate_dlg")+"\n\n"+(j.output||""));
+  }catch(e){ toast(t("valid_err"),"err"); }
 }
 async function doUpload(){
-  if(!bridge){ toast("Abra pelo atalho para enviar ao teclado","err"); return; }
-  if(!device){ toast("Conecte o teclado por USB","err"); return; }
-  if(!confirm("Enviar esta configuração para o teclado?\n\nAs 3 layers serão gravadas no dispositivo."))return;
-  toast("Enviando…","info");
+  if(!bridge){ toast(t("need_bridge_send"),"err"); return; }
+  if(!device){ toast(t("connect_usb"),"err"); return; }
+  if(!confirm(t("confirm_upload")))return;
+  toast(t("sending"),"info");
   try{
     const j=await api("/api/upload",{method:"POST",headers:{"Content-Type":"text/plain"},body:buildYaml()});
     if(typeof j.usbdk!=="undefined"){usbdk=j.usbdk;renderBanner();renderPill();}
-    toast(j.ok?"Enviado com sucesso 🎉":"Falha ao enviar", j.ok?"ok":"err");
-    if(!j.ok) alert((j.hint?("⚠️ "+j.hint+"\n\n"):"")+"Detalhe técnico:\n"+(j.output||""));
-  }catch(e){ toast("Erro ao enviar","err"); }
+    toast(j.ok?t("sent_ok"):t("sent_fail"), j.ok?"ok":"err");
+    if(!j.ok) alert((j.hint?("⚠️ "+j.hint+"\n\n"):"")+t("upload_tech")+"\n"+(j.output||""));
+  }catch(e){ toast(t("send_err"),"err"); }
 }
 async function applyLed(cmds){
   const msg=$("#ledmsg");
-  if(!bridge){toast("Abra pelo atalho para enviar","err");return;}
-  msg.className="msg show info";msg.textContent="Aplicando…";
+  if(!bridge){toast(t("need_bridge_send"),"err");return;}
+  msg.className="msg show info";msg.textContent=t("led_applying");
   try{
     let last=null;
     for(let idx=0;idx<cmds.length;idx++){
@@ -1003,8 +1140,8 @@ async function applyLed(cmds){
     }
     const ok=last&&last.ok;
     msg.className="msg show "+(ok?"ok":"err");
-    msg.textContent=(ok?"✓ iluminação aplicada no teclado":"✕ "+((last&&(last.hint||last.output))||"falhou"));
-  }catch(e){msg.className="msg show err";msg.textContent="erro de comunicação";}
+    msg.textContent=(ok?t("led_applied"):"✕ "+((last&&(last.hint||last.output))||t("led_failed")));
+  }catch(e){msg.className="msg show err";msg.textContent=t("comm_err");}
 }
 function scanConfigErrors(){
   const bad=[];
@@ -1019,17 +1156,14 @@ function scanConfigErrors(){
 function doExport(){
   const blob=new Blob([buildYaml()],{type:"text/yaml"});
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="keypad-config.yaml";a.click();
-  toast("YAML exportado","ok");
+  toast(t("export_ok"),"ok");
 }
 function doImport(text){
   try{
     const cfg=parseYaml(text);
-    Object.assign(state,{model:cfg.model||"ch57x-2",orientation:cfg.orientation||"normal",
-      rows:cfg.rows,columns:cfg.columns,knobs:cfg.knobs,layers:cfg.layers,layer:0});
-    syncSettings(); sel=null; renderAll(); toast("Config importada ✓","ok");
-  }catch(e){ toast("Não consegui ler esse YAML","err"); console.error(e); }
+    applyConfig(cfg); renderProfiles(); toast(t("import_ok"),"ok");
+  }catch(e){ toast(t("import_err"),"err"); console.error(e); }
 }
-/* tolerant parser for this tool's config structure */
 function parseYaml(text){
   const lines=text.split(/\r?\n/);
   const cfg={model:"ch57x-2",orientation:"normal",rows:3,columns:4,knobs:2,layers:[]};
@@ -1038,7 +1172,7 @@ function parseYaml(text){
   for(let raw of lines){
     let line=raw.replace(/\t/g,"  ");
     if(!line.trim()||line.trim().startsWith("#"))continue;
-    line=line.replace(/\s+#.*$/,"");   // remove comentário inline no fim da linha
+    line=line.replace(/\s+#.*$/,"");
     let m;
     if((m=line.match(/^model:\s*(.+)$/)))cfg.model=m[1].trim();
     else if((m=line.match(/^orientation:\s*(.+)$/)))cfg.orientation=m[1].trim();
@@ -1061,8 +1195,7 @@ function parseYaml(text){
     else if(mode==="knobs"&&(m=line.match(/^\s*press:\s*(.+)$/))&&curKnob){const v=m[1].trim();curKnob.press=(v==="null"||v==="~"||v==="")?null:unq(v);}
     else if(mode==="knobs"&&(m=line.match(/^\s*cw:\s*(.+)$/))&&curKnob){const v=m[1].trim();curKnob.cw=(v==="null"||v==="~"||v==="")?null:unq(v);}
   }
-  if(!cfg.layers.length)throw new Error("sem layers");
-  // header rows/columns are authoritative (normal-frame); keep them.
+  if(!cfg.layers.length)throw new Error("no layers");
   cfg.knobs=cfg.layers[0].knobs.length||cfg.knobs;
   while(cfg.layers.length<3)cfg.layers.push({buttons:cfg.layers[0].buttons.map(r=>r.map(()=>null)),knobs:cfg.layers[0].knobs.map(()=>({ccw:null,press:null,cw:null}))});
   return cfg;
@@ -1079,7 +1212,7 @@ function reshape(){
   const r=+$("#setRows").value,c=+$("#setCols").value,k=+$("#setKnobs").value;
   state.rows=Math.max(1,Math.min(6,r));state.columns=Math.max(1,Math.min(6,c));state.knobs=Math.max(0,Math.min(3,k));
   rebuildToDims();
-  sel=null;renderAll();toast("Layout aplicado","ok");
+  sel=null;renderAll();toast(t("layout_applied"),"ok");
 }
 
 /* ===================== PERSIST (localStorage) ===================== */
@@ -1088,16 +1221,14 @@ let hadSaved=false;
 function save(){try{localStorage.setItem(LS,JSON.stringify({model:state.model,orientation:state.orientation,rows:state.rows,columns:state.columns,knobs:state.knobs,layers:state.layers}));}catch(e){}}
 function load(){try{const s=JSON.parse(localStorage.getItem(LS));if(s&&s.layers){Object.assign(state,s);state.layer=0;hadSaved=true;}}catch(e){}}
 
-/* Sync from the keyboard = load the last config this app wrote to it (device is write-only,
-   so the bridge's saved copy IS what's currently on the device). */
 async function syncFromDevice(silent){
-  if(!bridge){ if(!silent) toast("Abra pelo atalho (bridge) para sincronizar","err"); return false; }
+  if(!bridge){ if(!silent) toast(t("sync_need_bridge"),"err"); return false; }
   try{
     const j=await api("/api/last");
-    if(j && j.ok && j.yaml){ const cfg=parseYaml(j.yaml); applyConfig(cfg); renderProfiles(); if(!silent) toast("Sincronizado com o teclado ✓","ok"); return true; }
-    if(!silent) toast("O teclado ainda não recebeu nenhuma config por este app","info");
+    if(j && j.ok && j.yaml){ const cfg=parseYaml(j.yaml); applyConfig(cfg); renderProfiles(); if(!silent) toast(t("synced_ok"),"ok"); return true; }
+    if(!silent) toast(t("sync_none"),"info");
     return false;
-  }catch(e){ if(!silent) toast("Não consegui sincronizar","err"); return false; }
+  }catch(e){ if(!silent) toast(t("sync_err"),"err"); return false; }
 }
 
 /* ===================== PROFILES ===================== */
@@ -1123,56 +1254,71 @@ function starterConfig(){
 function renderProfiles(){
   const b=$("#profilesBody"); if(!b) return; b.innerHTML="";
   const note=el("div","hint");note.style.marginTop="0";
-  note.innerHTML=`⚠️ O teclado só aceita <b>gravar</b> — não é possível ler de volta a config que já está nele (limite do hardware). Use os perfis como sua memória: monte aqui, salve, e reenvie quando quiser.`;
+  note.innerHTML=t("profiles_note");
   b.appendChild(note);
 
   const profs=getProfiles();const names=Object.keys(profs).sort((a,c)=>a.localeCompare(c));
-  b.appendChild(el("div","field-label","Perfis salvos"));
+  b.appendChild(el("div","field-label",t("profiles_saved")));
   const row=el("div","row");
   const psel=el("select");psel.id="profileSel";
-  if(!names.length){const o=el("option");o.value="";o.textContent="— nenhum perfil salvo —";psel.appendChild(o);}
+  if(!names.length){const o=el("option");o.value="";o.textContent=t("no_profiles");psel.appendChild(o);}
   names.forEach(n=>{const o=el("option");o.value=n;o.textContent=n;psel.appendChild(o);});
   row.appendChild(psel);
-  const ld=el("button","btn","Carregar");ld.style.flex="none";ld.disabled=!names.length;
-  ld.onclick=()=>{const n=psel.value;if(n&&profs[n]){applyConfig(profs[n]);toast(`Perfil "${n}" carregado`,"ok");}};
-  const dl=el("button","btn ghost","Excluir");dl.style.flex="none";dl.disabled=!names.length;
-  dl.onclick=()=>{const n=psel.value;if(n&&confirm(`Excluir o perfil "${n}"?`)){delete profs[n];setProfiles(profs);renderProfiles();toast("Perfil excluído","ok");}};
+  const ld=el("button","btn",t("load"));ld.style.flex="none";ld.disabled=!names.length;
+  ld.onclick=()=>{const n=psel.value;if(n&&profs[n]){applyConfig(profs[n]);toast(t("prof_loaded")(n),"ok");}};
+  const dl=el("button","btn ghost",t("del"));dl.style.flex="none";dl.disabled=!names.length;
+  dl.onclick=()=>{const n=psel.value;if(n&&confirm(t("confirm_del")(n))){delete profs[n];setProfiles(profs);renderProfiles();toast(t("prof_deleted"),"ok");}};
   row.appendChild(ld);row.appendChild(dl);b.appendChild(row);
 
-  b.appendChild(el("div","field-label","Salvar a config atual como perfil"));
+  b.appendChild(el("div","field-label",t("save_as")));
   const row2=el("div","row");
-  const nm=el("input");nm.type="text";nm.placeholder="nome do perfil…";nm.id="profileName";
+  const nm=el("input");nm.type="text";nm.placeholder=t("ph_profile");nm.id="profileName";
   nm.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();saveCurrentProfile(nm.value);}};
-  const sv=el("button","btn primary","Salvar");sv.style.flex="none";
+  const sv=el("button","btn primary",t("save"));sv.style.flex="none";
   sv.onclick=()=>saveCurrentProfile(nm.value);
   row2.appendChild(nm);row2.appendChild(sv);b.appendChild(row2);
 
   b.appendChild(el("div","divider"));
   const row3=el("div","apply-row");row3.style.marginTop="0";
-  const ex=el("button","btn ghost","✨ Carregar exemplo");ex.style.flex="1";ex.style.justifyContent="center";
-  ex.onclick=()=>{applyConfig(starterConfig());toast("Layout de exemplo carregado","ok");};
-  const cl=el("button","btn ghost","Começar do zero");cl.style.flex="1";cl.style.justifyContent="center";
-  cl.onclick=()=>{if(confirm("Limpar todas as 3 layers?")){initLayers();sel=null;renderAll();toast("Tudo limpo","ok");}};
+  const ex=el("button","btn ghost",t("load_example"));ex.style.flex="1";ex.style.justifyContent="center";
+  ex.onclick=()=>{applyConfig(starterConfig());toast(t("example_loaded"),"ok");};
+  const cl=el("button","btn ghost",t("start_blank"));cl.style.flex="1";cl.style.justifyContent="center";
+  cl.onclick=()=>{if(confirm(t("confirm_clear"))){initLayers();sel=null;renderAll();toast(t("all_clear"),"ok");}};
   row3.appendChild(ex);row3.appendChild(cl);b.appendChild(row3);
 }
 function saveCurrentProfile(name){
   name=(name||"").trim();
-  if(!name){toast("Dê um nome ao perfil","err");return;}
+  if(!name){toast(t("name_profile"),"err");return;}
   const p=getProfiles();const existed=!!p[name];
-  if(existed && !confirm(`Já existe um perfil "${name}". Substituir?`))return;
-  p[name]=snapshot();setProfiles(p);renderProfiles();toast(`Perfil "${name}" salvo`,"ok");
+  if(existed && !confirm(t("confirm_overwrite")(name)))return;
+  p[name]=snapshot();setProfiles(p);renderProfiles();toast(t("prof_saved")(name),"ok");
 }
 
-/* ===================== WIRING ===================== */
+/* ===================== I18N APPLY / WIRING ===================== */
+function applyStaticI18n(){
+  document.documentElement.lang = (lang==="pt"?"pt-BR":"en");
+  $$("[data-i18n]").forEach(e=>{ e.textContent = t(e.getAttribute("data-i18n")); });
+  $$("[data-i18n-html]").forEach(e=>{ e.innerHTML = t(e.getAttribute("data-i18n-html")); });
+  $$("[data-i18n-title]").forEach(e=>{ e.setAttribute("title", t(e.getAttribute("data-i18n-title"))); });
+  $$("[data-i18n-ph]").forEach(e=>{ e.setAttribute("placeholder", t(e.getAttribute("data-i18n-ph"))); });
+  $$("#langsw button").forEach(b=>b.classList.toggle("active", b.dataset.lang===lang));
+}
+function setLang(l){
+  if(l===lang) return;
+  lang=l; try{localStorage.setItem("keypad-lang",l);}catch(e){}
+  applyStaticI18n(); renderAll(); renderProfiles(); renderLed(); renderPill(); renderBanner();
+}
+
 function renderAll(){ renderLayers(); renderDevice(); renderInspector(); renderYaml(); syncSettings(); save(); }
 
+$$("#langsw button").forEach(b=>b.onclick=()=>setLang(b.dataset.lang));
 $("#btnExport").onclick=doExport;
 $("#btnSync").onclick=()=>syncFromDevice(false);
 $("#btnImport").onclick=()=>$("#fileInput").click();
 $("#fileInput").onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>doImport(rd.result);rd.readAsText(f);e.target.value="";};
 $("#btnValidate").onclick=doValidate;
 $("#btnUpload").onclick=doUpload;
-$("#btnCopyYaml").onclick=()=>{navigator.clipboard.writeText(buildYaml()).then(()=>toast("YAML copiado","ok"),()=>toast("não foi possível copiar","err"));};
+$("#btnCopyYaml").onclick=()=>{navigator.clipboard.writeText(buildYaml()).then(()=>toast(t("yaml_copied"),"ok"),()=>toast(t("copy_fail"),"err"));};
 $("#setOrient").onchange=()=>{state.orientation=$("#setOrient").value;rebuildToDims();sel=null;renderAll();};
 $("#setModel").onchange=()=>{state.model=$("#setModel").value;userPickedModel=true;renderYaml();renderLed();save();};
 $("#btnReshape").onclick=reshape;
@@ -1186,8 +1332,10 @@ window.addEventListener("keydown",e=>{
 load();
 if(!state.layers||!state.layers.length) initLayers();
 rebuildToDims();
+applyStaticI18n();
 renderAll();
 renderProfiles();
+renderLed();
 detectBridge();
 setInterval(()=>{ if(bridge) refreshStatus(); }, 4000);
 </script>

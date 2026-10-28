@@ -1,0 +1,45 @@
+# Layout do seu macropad (knobs em cima = counterclockwise)
+# Importe este arquivo no Keypad Studio (botao Importar) para ver/editar.
+#
+# Posicao fisica das teclas (como voce segura, knobs em cima):
+#   (knob esq)        (knob dir)
+#   [ P1 ][ P2 ][ P3 ]
+#   [ P4 ][ P5 ][ P6 ]
+#   [ P7 ][ P8 ][ P9 ]
+#   [ P10][ P11][ P12]
+
+model: ch57x-1
+orientation: counterclockwise
+rows: 3
+columns: 4
+knobs: 2
+layers:
+  # ----- Layer 1: PRODUTIVIDADE -----
+  - buttons:
+      - ["ctrl-c", "ctrl-v", "ctrl-x"]       # copiar / colar / recortar
+      - ["ctrl-z", "ctrl-y", "ctrl-s"]       # desfazer / refazer / salvar
+      - ["ctrl-a", "ctrl-f", "alt-tab"]      # selec. tudo / localizar / trocar janela
+      - ["ctrl-shift-t", "printscreen", "ctrl-w"]  # reabrir aba / print / fechar
+    knobs:
+      - { ccw: "volumedown", press: "mute",  cw: "volumeup" }   # knob esq: volume
+      - { ccw: "wheeldown",  press: "click", cw: "wheelup" }    # knob dir: scroll
+
+  # ----- Layer 2: EDICAO DE VIDEO (Premiere / OBS) -----
+  - buttons:
+      - ["i", "o", "space"]        # marcar in / marcar out / play-pause
+      - ["j", "k", "l"]            # shuttle: voltar / pausar / avancar
+      - ["c", "v", "m"]            # lamina(cortar) / selecao / marcador
+      - ["ctrl-z", "ctrl-s", "ctrl-k"]  # desfazer / salvar / add edicao
+    knobs:
+      - { ccw: "volumedown", press: "mute",  cw: "volumeup" }   # knob esq: volume
+      - { ccw: "left",       press: "space", cw: "right" }      # knob dir: timeline (frame a frame)
+
+  # ----- Layer 3: LIVRE (personalize do seu jeito) -----
+  - buttons:
+      - [null, null, null]
+      - [null, null, null]
+      - [null, null, null]
+      - [null, null, null]
+    knobs:
+      - { ccw: null, press: null, cw: null }
+      - { ccw: null, press: null, cw: null }

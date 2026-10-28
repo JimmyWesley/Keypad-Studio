@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" font-family="-apple-system,Segoe UI,Roboto,sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0c14"/><stop offset="1" stop-color="#0e1120"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#141927"/><stop offset="1" stop-color="#101420"/>
+    </linearGradient>
+    <linearGradient id="dev" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1c2130"/><stop offset=".6" stop-color="#0e111a"/>
+    </linearGradient>
+    <radialGradient id="dial" cx="50%" cy="36%" r="65%">
+      <stop offset="0" stop-color="#f4f6fa"/><stop offset=".45" stop-color="#c2c7d2"/>
+      <stop offset=".7" stop-color="#878d9c"/><stop offset="1" stop-color="#2a2e37"/>
+    </radialGradient>
+    <linearGradient id="cap" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a3042"/><stop offset="1" stop-color="#171b27"/>
+    </linearGradient>
+    <linearGradient id="logo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff4d6d"/><stop offset=".3" stop-color="#ffd24d"/>
+      <stop offset=".6" stop-color="#4de1ff"/><stop offset="1" stop-color="#b07cff"/>
+    </linearGradient>
+    <linearGradient id="prim" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#d7b6ff"/><stop offset="1" stop-color="#b07cff"/>
+    </linearGradient>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6e8bff"/><stop offset="1" stop-color="#b07cff"/></linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff5d8f"/><stop offset="1" stop-color="#ff9d4d"/></linearGradient>
+    <linearGradient id="g3" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4de1ff"/><stop offset="1" stop-color="#49d07f"/></linearGradient>
+  </defs>
+
+  <rect width="1000" height="520" rx="22" fill="url(#bg)"/>
+
+  <!-- top bar -->
+  <rect x="0" y="0" width="1000" height="66" fill="#0b0d14" opacity=".7"/>
+  <rect x="24" y="16" width="34" height="34" rx="9" fill="url(#logo)"/>
+  <rect x="30" y="22" width="22" height="22" rx="5" fill="#0b0d14"/>
+  <text x="70" y="32" fill="#eef1f7" font-size="17" font-weight="700" letter-spacing="2">KEYPAD STUDIO</text>
+  <text x="70" y="49" fill="#9aa3b5" font-size="11" letter-spacing="1">ch57x · 12 keys · 2 knobs</text>
+  <!-- status pill -->
+  <rect x="690" y="18" width="150" height="30" rx="15" fill="#49d07f" opacity=".12"/>
+  <circle cx="708" cy="33" r="4" fill="#49d07f"/>
+  <text x="720" y="37" fill="#cdeedd" font-size="12" font-weight="600">Conectado · ch57x-1</text>
+  <!-- send button -->
+  <rect x="852" y="16" width="124" height="34" rx="11" fill="url(#prim)"/>
+  <text x="914" y="38" fill="#0b0813" font-size="12.5" font-weight="700" text-anchor="middle">↑ Enviar p/ teclado</text>
+
+  <!-- device panel -->
+  <rect x="24" y="86" width="560" height="410" rx="20" fill="url(#panel)" stroke="#ffffff14"/>
+  <text x="48" y="118" fill="#9aa3b5" font-size="12" font-weight="600" letter-spacing="1.5">DISPOSITIVO</text>
+
+  <!-- device body -->
+  <rect x="150" y="138" width="310" height="330" rx="24" fill="url(#dev)" stroke="#ffffff1a"/>
+
+  <!-- knobs -->
+  <g>
+    <circle cx="225" cy="196" r="34" fill="url(#dial)" stroke="#00000055"/>
+    <rect x="223" y="170" width="4" height="12" rx="2" fill="#4a505e"/>
+    <text x="225" y="200" fill="#11141b" font-size="10" font-weight="800" text-anchor="middle">mute</text>
+    <circle cx="330" cy="196" r="34" fill="url(#dial)" stroke="#00000055"/>
+    <rect x="328" y="170" width="4" height="12" rx="2" fill="#4a505e"/>
+    <text x="330" y="200" fill="#11141b" font-size="10" font-weight="800" text-anchor="middle">click</text>
+  </g>
+
+  <!-- 3x4 keys -->
+  <g>
+    <!-- row1 -->
+    <g>
+      <rect x="168" y="250" width="86" height="46" rx="10" fill="url(#cap)" stroke="#ffffff14"/><rect x="176" y="289" width="70" height="3" rx="2" fill="url(#g1)"/><text x="211" y="278" fill="#eaf0ff" font-size="12" font-weight="600" text-anchor="middle">ctrl-c</text>
+      <rect x="262" y="250" width="86" height="46" rx="10" fill="url(#cap)" stroke="#ffffff14"/><rect x="270" y="289" width="70" height="3" rx="2" fill="url(#g2)"/><text x="305" y="278" fill="#eaf0ff" font-size="12" font-weight="600" text-anchor="middle">ctrl-v</text>
+      <rect x="356" y="250" width="86" height="46" rx="10" fill="url(#cap)" stroke="#ffffff14"/><rect x="364" y="289" width="70" height="3" rx="2" fill="url(#g3)"/><text x="399" y="278" fill="#eaf0ff" font-size="12" font-weight="600" text-anchor="middle">ctrl-x</text>
+    </g>
+    <!-- row2 -->
+    <g>
+      <rect x="168" y="302" width="86" height="46" rx="10" fill="url(#cap)" stroke="#ffffff14"/><rect x="176" y="341" width="70" height="3" rx="2" fill="url(#g2)"/><text x="211" y="330" fill="#eaf0ff" font-size="12" font-weight="600" text-anchor="middle">ctrl-z</text>
+      <rect x="262" y="302" width="86" height="46" rx="10" fill="url(#cap)" stroke="#ffffff14"/><rect x="270" y="341" width="70" height="3" rx="2" fill="url(#g1)"/><text x="305" y="330" fill="#eaf0ff" font-size="12" font-weight="600" text-anchor="middle">ctrl-y</text>
+      <rect x="356" y="302" width="86" height="46" rx="10" fill="url(#cap)" stroke="#ffffff14"/><rect x="364" y="341" width="70" height="3" rx="2" fill="url(#g3)"/><text x="399" y="330" fill="#eaf0ff" font-size="12" font-weight="600" text-anchor="middle">ctrl-s</text>
+    </g>
+    <!-- row3 -->
+    <g>
+      <rect x="168" y="354" width="86" height="46" rx="10" fill="url(#cap)" stroke="#ffffff14"/><rect x="176" y="393" width="70" height="3" rx="2" fill="url(#g3)"/><text x="211" y="382" fill="#eaf0ff" font-size="12" font-weight="600" text-anchor="middle">ctrl-a</text>
+      <rect x="262" y="354" width="86" height="46" rx="10" fill="url(#cap)" stroke="#ffffff14"/><rect x="270" y="393" width="70" height="3" rx="2" fill="url(#g2)"/><text x="305" y="382" fill="#eaf0ff" font-size="12" font-weight="600" text-anchor="middle">ctrl-f</text>
+      <rect x="356" y="354" width="86" height="46" rx="10" fill="url(#cap)" stroke="#ffffff14"/><rect x="364" y="393" width="70" height="3" rx="2" fill="url(#g1)"/><text x="399" y="382" fill="#eaf0ff" font-size="11" font-weight="600" text-anchor="middle">alt-tab</text>
+    </g>
+    <!-- row4 -->
+    <g>
+      <rect x="168" y="406" width="86" height="46" rx="10" fill="url(#cap)" stroke="#ffffff14"/><rect x="176" y="445" width="70" height="3" rx="2" fill="url(#g1)"/><text x="211" y="434" fill="#eaf0ff" font-size="11" font-weight="600" text-anchor="middle">↶ aba</text>
+      <rect x="262" y="406" width="86" height="46" rx="10" fill="url(#cap)" stroke="#ffffff14"/><rect x="270" y="445" width="70" height="3" rx="2" fill="url(#g3)"/><text x="305" y="434" fill="#eaf0ff" font-size="11" font-weight="600" text-anchor="middle">prtscr</text>
+      <rect x="356" y="406" width="86" height="46" rx="10" fill="url(#cap)" stroke="#ffffff14"/><rect x="364" y="445" width="70" height="3" rx="2" fill="url(#g2)"/><text x="399" y="434" fill="#eaf0ff" font-size="12" font-weight="600" text-anchor="middle">ctrl-w</text>
+    </g>
+  </g>
+
+  <!-- right: action + yaml preview -->
+  <rect x="608" y="86" width="368" height="150" rx="20" fill="url(#panel)" stroke="#ffffff14"/>
+  <text x="632" y="118" fill="#9aa3b5" font-size="12" font-weight="600" letter-spacing="1.5">AÇÃO</text>
+  <text x="632" y="150" fill="#eef1f7" font-size="15" font-weight="650">Interface digna de Apple &amp; Logitech</text>
+  <text x="632" y="174" fill="#9aa3b5" font-size="12.5">Clique numa tecla ou knob, escolha a ação</text>
+  <text x="632" y="193" fill="#9aa3b5" font-size="12.5">(tecla, atalho, macro, mouse, mídia)…</text>
+  <rect x="632" y="206" width="104" height="16" rx="8" fill="#6ea8ff" opacity=".2"/><text x="684" y="218" fill="#cfe0ff" font-size="10.5" text-anchor="middle" font-weight="600">3 layers</text>
+  <rect x="744" y="206" width="96" height="16" rx="8" fill="#b07cff" opacity=".2"/><text x="792" y="218" fill="#e6d6ff" font-size="10.5" text-anchor="middle" font-weight="600">RGB</text>
+
+  <rect x="608" y="250" width="368" height="246" rx="20" fill="#06070b" stroke="#ffffff14"/>
+  <text x="632" y="280" fill="#9aa3b5" font-size="12" font-weight="600" letter-spacing="1.5">CONFIG (YAML)</text>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="12.5">
+    <text x="632" y="308" fill="#8ab4ff">model: <tspan fill="#cdd6e6">ch57x-1</tspan></text>
+    <text x="632" y="328" fill="#8ab4ff">orientation: <tspan fill="#cdd6e6">counterclockwise</tspan></text>
+    <text x="632" y="348" fill="#8ab4ff">rows: <tspan fill="#7fe0b0">3</tspan>  <tspan fill="#8ab4ff">columns:</tspan> <tspan fill="#7fe0b0">4</tspan>  <tspan fill="#8ab4ff">knobs:</tspan> <tspan fill="#7fe0b0">2</tspan></text>
+    <text x="632" y="368" fill="#8ab4ff">layers:</text>
+    <text x="648" y="388" fill="#8ab4ff">- buttons:</text>
+    <text x="664" y="408" fill="#cdd6e6">- [<tspan fill="#c9a7ff">"ctrl-c"</tspan>, <tspan fill="#c9a7ff">"ctrl-v"</tspan>, <tspan fill="#c9a7ff">"ctrl-x"</tspan>]</text>
+    <text x="664" y="428" fill="#cdd6e6">- [<tspan fill="#c9a7ff">"ctrl-z"</tspan>, <tspan fill="#c9a7ff">"ctrl-y"</tspan>, <tspan fill="#c9a7ff">"ctrl-s"</tspan>]</text>
+    <text x="648" y="448" fill="#8ab4ff">knobs:</text>
+    <text x="664" y="468" fill="#cdd6e6">- ccw: <tspan fill="#c9a7ff">"volumedown"</tspan></text>
+  </g>
+</svg>

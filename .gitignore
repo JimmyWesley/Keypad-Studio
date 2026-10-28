@@ -1,0 +1,8 @@
+# Runtime state written by the bridge (last config sent to the device)
+studio/.last-config.yaml
+
+# OS / editor junk
+Thumbs.db
+desktop.ini
+.DS_Store
+*.log

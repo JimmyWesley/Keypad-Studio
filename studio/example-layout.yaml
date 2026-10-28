@@ -1,0 +1,45 @@
+# Example layout for your macro keypad (knobs on top = counterclockwise)
+# Import this file in Keypad Studio (Import button) to view/edit it.
+#
+# Physical key positions (as you hold it, knobs on top):
+#   (left knob)       (right knob)
+#   [ P1 ][ P2 ][ P3 ]
+#   [ P4 ][ P5 ][ P6 ]
+#   [ P7 ][ P8 ][ P9 ]
+#   [ P10][ P11][ P12]
+
+model: ch57x-1
+orientation: counterclockwise
+rows: 3
+columns: 4
+knobs: 2
+layers:
+  # ----- Layer 1: PRODUCTIVITY -----
+  - buttons:
+      - ["ctrl-c", "ctrl-v", "ctrl-x"]       # copy / paste / cut
+      - ["ctrl-z", "ctrl-y", "ctrl-s"]       # undo / redo / save
+      - ["ctrl-a", "ctrl-f", "alt-tab"]      # select all / find / switch window
+      - ["ctrl-shift-t", "printscreen", "ctrl-w"]  # reopen tab / print screen / close
+    knobs:
+      - { ccw: "volumedown", press: "mute",  cw: "volumeup" }   # left knob: volume
+      - { ccw: "wheeldown",  press: "click", cw: "wheelup" }    # right knob: scroll
+
+  # ----- Layer 2: VIDEO EDITING (Premiere / OBS) -----
+  - buttons:
+      - ["i", "o", "space"]        # mark in / mark out / play-pause
+      - ["j", "k", "l"]            # shuttle: back / pause / forward
+      - ["c", "v", "m"]            # razor (cut) / selection / marker
+      - ["ctrl-z", "ctrl-s", "ctrl-k"]  # undo / save / add edit
+    knobs:
+      - { ccw: "volumedown", press: "mute",  cw: "volumeup" }   # left knob: volume
+      - { ccw: "left",       press: "space", cw: "right" }      # right knob: timeline (frame by frame)
+
+  # ----- Layer 3: FREE (customize it your way) -----
+  - buttons:
+      - [null, null, null]
+      - [null, null, null]
+      - [null, null, null]
+      - [null, null, null]
+    knobs:
+      - { ccw: null, press: null, cw: null }
+      - { ccw: null, press: null, cw: null }

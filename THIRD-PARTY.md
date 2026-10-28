@@ -37,7 +37,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-The files `bin/example-mapping.yaml` and `docs/acoes-ch57x.md` also come from
+The files `bin/example-mapping.yaml` and `docs/actions.md` also come from
 that project.
 
 ---

@@ -39,14 +39,14 @@
   <!-- status pill -->
   <rect x="690" y="18" width="150" height="30" rx="15" fill="#49d07f" opacity=".12"/>
   <circle cx="708" cy="33" r="4" fill="#49d07f"/>
-  <text x="720" y="37" fill="#cdeedd" font-size="12" font-weight="600">Conectado · ch57x-1</text>
+  <text x="720" y="37" fill="#cdeedd" font-size="12" font-weight="600">Connected · ch57x-1</text>
   <!-- send button -->
   <rect x="852" y="16" width="124" height="34" rx="11" fill="url(#prim)"/>
-  <text x="914" y="38" fill="#0b0813" font-size="12.5" font-weight="700" text-anchor="middle">↑ Enviar p/ teclado</text>
+  <text x="914" y="38" fill="#0b0813" font-size="12.5" font-weight="700" text-anchor="middle">↑ Send to keyboard</text>
 
   <!-- device panel -->
   <rect x="24" y="86" width="560" height="410" rx="20" fill="url(#panel)" stroke="#ffffff14"/>
-  <text x="48" y="118" fill="#9aa3b5" font-size="12" font-weight="600" letter-spacing="1.5">DISPOSITIVO</text>
+  <text x="48" y="118" fill="#9aa3b5" font-size="12" font-weight="600" letter-spacing="1.5">DEVICE</text>
 
   <!-- device body -->
   <rect x="150" y="138" width="310" height="330" rx="24" fill="url(#dev)" stroke="#ffffff1a"/>
@@ -91,10 +91,10 @@
 
   <!-- right: action + yaml preview -->
   <rect x="608" y="86" width="368" height="150" rx="20" fill="url(#panel)" stroke="#ffffff14"/>
-  <text x="632" y="118" fill="#9aa3b5" font-size="12" font-weight="600" letter-spacing="1.5">AÇÃO</text>
-  <text x="632" y="150" fill="#eef1f7" font-size="15" font-weight="650">Interface digna de Apple &amp; Logitech</text>
-  <text x="632" y="174" fill="#9aa3b5" font-size="12.5">Clique numa tecla ou knob, escolha a ação</text>
-  <text x="632" y="193" fill="#9aa3b5" font-size="12.5">(tecla, atalho, macro, mouse, mídia)…</text>
+  <text x="632" y="118" fill="#9aa3b5" font-size="12" font-weight="600" letter-spacing="1.5">ACTION</text>
+  <text x="632" y="150" fill="#eef1f7" font-size="15" font-weight="650">Apple &amp; Logitech‑grade interface</text>
+  <text x="632" y="174" fill="#9aa3b5" font-size="12.5">Click a key or knob, pick the action</text>
+  <text x="632" y="193" fill="#9aa3b5" font-size="12.5">(key, shortcut, macro, mouse, media)…</text>
   <rect x="632" y="206" width="104" height="16" rx="8" fill="#6ea8ff" opacity=".2"/><text x="684" y="218" fill="#cfe0ff" font-size="10.5" text-anchor="middle" font-weight="600">3 layers</text>
   <rect x="744" y="206" width="96" height="16" rx="8" fill="#b07cff" opacity=".2"/><text x="792" y="218" fill="#e6d6ff" font-size="10.5" text-anchor="middle" font-weight="600">RGB</text>
 
